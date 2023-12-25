@@ -16,7 +16,6 @@ function getSumOfDigits(n) {
   let result = n;
   while (String(result).length > 1) {
     result = String(result).split('').reduce((prev, current) => prev + +current, 0)
-
   }
   return result
 }

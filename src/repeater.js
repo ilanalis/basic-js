@@ -35,15 +35,12 @@ function repeater(str, options) {
     let additionString = `${options.addition} `
         .repeat(options.additionRepeatTimes)
         .split(' ');
-    console.log(additionString, 'tttttttttt');
     additionString = additionString
         .slice(0, additionString.length - 1)
         .join(options.additionSeparator);
-
     let resultString = `${str}${additionString}${uniqSeparator.separator}`
         .repeat(options.repeatTimes)
         .split(`${uniqSeparator.separator}`);
-    // console.log(resultString, 'fdff')
     resultString = resultString
         .slice(0, resultString.length - 1)
         .join(options.separator);

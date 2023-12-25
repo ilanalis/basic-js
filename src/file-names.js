@@ -16,34 +16,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function renameFiles(names) {
-  // let namesCopy = names;
-  // const set = new Set(names);
-  // console.log(set.size, names.length)
-  // if (set.size === names.length) {
-  //   console.log('iiidsadSSSSSSSSSSSSSSSSSSSSSSSSS')
-  //   return namesCopy;
-  // }
 
-  // const countRepeat = {};
-  // const numbersOfCurrentName = {};
-  // names.forEach(name => {
-  //   if (countRepeat[name]) {
-  //     countRepeat[name] = countRepeat[name] += 1
-  //     numbersOfCurrentName[name] = 1;
-  //   } else {
-  //     countRepeat[name] = 1;
-  //   }
-  // });
-  // namesCopy = namesCopy.map(name => {
-  //   if (countRepeat[name]) {
-  //     return name
-  //   }
-  //   const currentName = `${name}(${numbersOfCurrentName[name]})`;
-  //   numbersOfCurrentName[name] += 1;
-  //   return currentName;
-  // });
-  // console.log(namesCopy);
-  // return renameFiles(namesCopy);
 }
 
 renameFiles(['doc', 'doc', 'image', 'doc(1)', 'doc'])

@@ -15,6 +15,8 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function transform(arr) {
+
+
   if (!(Array.isArray(arr))) {
     throw new Error(`'arr' parameter must be an instance of the Array!`)
   }
@@ -24,7 +26,9 @@ function transform(arr) {
     '--discard-next': false,
     '--discard-prev': false
   }
-  if (!(Object.keys(transformCommands).some(el => arr.includes(el)))) {
+
+  const commandsKeys = Object.keys(transformCommands);
+  if (!(commandsKeys.some(el => arr.includes(el)))) {
     return arr;
   }
 
@@ -37,7 +41,6 @@ function transform(arr) {
       }
     }
     return false;
-
   }
   function changeAllCommandsToFalse() {
     for (let command in transformCommands) {
@@ -45,33 +48,43 @@ function transform(arr) {
     }
   }
   for (let i = 0; i < arr.length; i += 1) {
-    if (typeof arr[i] === 'number') {
+    if (!commandsKeys.includes(arr[i])) {
       let command = checkNeedToChangeElement()
       if (command) {
-        if (command === '--discard-prev' && i > 0) {
+        if (command === '--discard-prev' && i > 1) {
+          if ((arr[i - 3]) === '--discard-next') {
+            changeAllCommandsToFalse();
+            newArr.push(arr[i]);
+            continue;
+          }
+          newArr.pop()
+        } else if (command === '--double-prev' && i > 1) {
+          if ((arr[i - 3]) === '--discard-next') {
+            changeAllCommandsToFalse();
+            newArr.push(arr[i]);
+            continue;
+          }
+          if (typeof arr[i - 2] === 'number') {
+            newArr.push(arr[i - 2])
+          }
+        } else if (command === '--discard-next') {
+          changeAllCommandsToFalse();
           continue;
-        } else if (command === '--double-prev' && i > 0) {
-          newArr.push(arr[i - 1])
-        } else {
-          newArr.push(arr[i]);
-
-        }
-        if (command === '--discard-next') {
-          i += 1
         } else if (command === '--double-next') {
           newArr.push(arr[i]);
         }
         changeAllCommandsToFalse();
-
+        newArr.push(arr[i]);
       } else {
-        transformCommands[arr[i]] = true;
-        // newArr.push(arr[i]);
+        newArr.push(arr[i]);
       }
+    } else {
+      transformCommands[arr[i]] = true;
     }
   }
   return newArr;
 }
-console.log(transform([1, 2, 3, '--double-next', 1337, '--double-prev', 4, 5]))
+
 module.exports = {
   transform
 };

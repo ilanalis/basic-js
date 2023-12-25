@@ -14,8 +14,6 @@ const { NotImplementedError } = require('../extensions/index.js');
 function getCommonCharacterCount(s1, s2) {
   let baseString = s1;
   let count = 0;
-
-
   for (let i = 0; i < s2.length; i += 1) {
     const letter = s2[i]
     if (baseString.includes(letter)) {
